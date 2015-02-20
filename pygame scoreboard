@@ -1,0 +1,22 @@
+import os, sys
+import pygame
+from pygame.locals import *
+
+pygame.init()
+mainClock = pygame.time.Clock()
+
+WINDOWWIDTH = 1000
+WINDOWHEIGHT = 700
+windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
+pygame.display.set_caption("Avoid!")
+
+class Score(pygame.sprite.Sprite):
+    """A sprite for the score."""
+
+    def __init__(self, xy):
+        pygame.sprite.Sprite.__init__(self)
+        self.xy = xy  #save xy -- will center our rect on it when we change the score
+        self.font = pygame.font.Font(None, 50)  # load the default font, size 50
+        self.color = (255, 165, 0)         # our font color in rgb
+        self.score = 0  # start at zero
+        self.reRender() # generate the image
