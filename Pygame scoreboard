@@ -1,0 +1,9 @@
+import os,sys
+import pygame
+from pygame.locals import*
+
+pygame.init()
+mainClock=pygame.time.Clock()
+
+WINDOWIDTH=1000
+WINDOWHEIGHT=500
