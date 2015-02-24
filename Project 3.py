@@ -1,12 +1,13 @@
-
 #importing the pygame package
 
 import pygame
 import sys
 import time
 import random
+import math
 from pygame.locals import *
 import pygame.mixer
+from time import sleep
 
 #Initializing it
 pygame.init()
@@ -59,6 +60,19 @@ light1 = 'red'
 light1 = 'green'
  
 fpsTime = pygame.time.Clock()
+
+score=0
+timer=0
+
+gamefont=pygame.font.Font (None, 30)
+scoretext=gamefont.render('Player Score: '+str(score) , 1, [255,0,0])
+boxsize=scoretext.get_rect()
+scoreXpos=(1181-boxsize[2])/2
+setDisplay.blit(scoretext, [scoreXpos,20])
+timertext=gamefont.render('Timer: '+str(timer) , 1, [255,0,0])
+boxsize=timertext.get_rect()
+timerXpos=(1181-boxsize[2])/2
+setDisplay.blit(timertext, [timerXpos,20])
 
 #Defining score and loading the font on the screen
 def texts(score):
@@ -171,15 +185,14 @@ class TwoRobots:
                      rel = e.rel
                      goldPos.x += rel[0]
                      goldPos.y += rel[1]
-                     bronzePos.x += rel[0]
-                     bronzePos.y += rel[1]
-                     silverPos.x += rel[0]
-                     silverPos.y += rel[1]
-                     GSBPos.x += rel[0]
-                     GSBPos.y += rel[1]
-            setDisplay.blit(bronze,bronzePos,GSB,GSBPos)
+                     #bronzePos.x += rel[0]
+                     #bronzePos.y += rel[1]
+                     #silverPos.x += rel[0]
+                     #silverPos.y += rel[1]
+                     #GSBPos.x += rel[0]
+                     #GSBPos.y += rel[1]
+            #setDisplay.blit(bronze,bronzePos,GSB,GSBPos)
             
-            setDisplay.blit(gold,goldPos,silver,silverPos)
    
             pygame.display.flip()
             pygame.time.delay(30)
@@ -210,8 +223,9 @@ class TwoRobots:
             
        
 
-           
-            
+            score+=5
+            timer+=1
+
                 
             setDisplay.fill(black)
 
@@ -288,8 +302,10 @@ class TwoRobots:
                             pygame.quit()
                             sys.exit() 
         
-
-#Set of images bliting on the screen     
+            
+            
+#Set of images bliting on the screen
+            timer=math.trunc(timer)
             setDisplay.blit(bg, (0,0))
             setDisplay.blit(img, (imgx,imgy))
             setDisplay.blit(treasure, (982,518))
@@ -297,6 +313,11 @@ class TwoRobots:
             setDisplay.blit(treasure, (728,483))
             setDisplay.blit(treasure, (692,220))
             setDisplay.blit(img1, (img1x,img1y))
+            setDisplay.blit(gold,goldPos)
+            setDisplay.blit(scoretext, [scoreXpos,20])
+            scoretext=gamefont.render('Player Score: '+str(score) , 1, [255,0,0])
+            setDisplay.blit(timertext, [timerXpos,50])
+            timertext=gamefont.render('Timer: '+str(timer) , 1, [255,0,0])
             pygame.display.flip()
      
      
@@ -304,5 +325,6 @@ class TwoRobots:
             pygame.display.update()
             fpsTime.tick(FPS)
      
- 
+             
 pygame.display.update()
+
