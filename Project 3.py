@@ -22,7 +22,7 @@ green = (  0, 255,   0)
 #Size of the screen, title, importing sound and loading images 
 setDisplay = pygame.display.set_mode((1181,981))
 title = pygame.display.set_caption("Treasure Hunt")
-sound = pygame.mixer.Sound('song.wav') 
+#sound = pygame.mixer.Sound('song.wav') 
 bg = pygame.image.load("map.gif")
 img = pygame.image.load('pirate.gif')
 img1 = pygame.image.load('pirate1.gif')
@@ -32,10 +32,10 @@ bronze =  pygame.image.load('bronze.gif')
 silver =  pygame.image.load('silver.gif')
 GSB  =  pygame.image.load('GSB.gif')
 
-goldPos = pygame.Rect((0, 0), (0, 0))
-#silverPos = pygame.Rect((0, 0), (0, 0))
-#bronzePos = pygame.Rect((0, 0), (0, 0))
-#GSBPos = pygame.Rect((0, 0), (0, 0))
+goldPos = pygame.Rect((900, 800), (600, 600))
+silverPos = pygame.Rect((900, 850), (700, 700))
+bronzePos = pygame.Rect((900, 900), (800, 800))
+GSBPos = pygame.Rect((900, 950), (0, 0))
 
 
    
@@ -176,7 +176,18 @@ class TwoRobots:
             setDisplay.blit(treasure, (0,0))
 
     while True:
-            sound.play()
+            #sound.play()
+            LeftButton = 0
+            for o in pygame.event.get():
+               if o.type == QUIT: exit(0)
+               if o.type == MOUSEMOTION:
+                  if o.buttons[LeftButton]:
+                     rel = o.rel
+                     bronzePos.x += rel[0]
+                     bronzePos.y += rel[1]
+
+
+      
             LeftButton = 0
             for e in pygame.event.get():
                if e.type == QUIT: exit(0)
@@ -185,17 +196,31 @@ class TwoRobots:
                      rel = e.rel
                      goldPos.x += rel[0]
                      goldPos.y += rel[1]
-                     #bronzePos.x += rel[0]
-                     #bronzePos.y += rel[1]
-                     #silverPos.x += rel[0]
-                     #silverPos.y += rel[1]
-                     #GSBPos.x += rel[0]
-                     #GSBPos.y += rel[1]
-            #setDisplay.blit(bronze,bronzePos,GSB,GSBPos)
-            
+                     
+
+            LeftButton = 0
+            for k in pygame.event.get():
+               if k.type == QUIT: exit(0)
+               if k.type == MOUSEMOTION:
+                  if k.buttons[LeftButton]:
+                     rel = k.rel
+                     silverPos.x += rel[0]
+                     silverPos.y += rel[1]
+
+            LeftButton = 0
+            for a in pygame.event.get():
+               if a.type == QUIT: exit(0)
+               if a.type == MOUSEMOTION:
+                  if a.buttons[LeftButton]:
+                     rel = a.rel
+                     GSBPos.x += rel[0]
+                     GSBPos.y += rel[1]
+
    
             pygame.display.flip()
             pygame.time.delay(30)
+   
+
             
 
             if movement1 == 'left':
@@ -228,6 +253,8 @@ class TwoRobots:
 
                 
             setDisplay.fill(black)
+
+            
 
 
 #Random Traffic light stopping
@@ -313,7 +340,10 @@ class TwoRobots:
             setDisplay.blit(treasure, (728,483))
             setDisplay.blit(treasure, (692,220))
             setDisplay.blit(img1, (img1x,img1y))
+            setDisplay.blit(GSB,GSBPos)
             setDisplay.blit(gold,goldPos)
+            setDisplay.blit(bronze,bronzePos)
+            setDisplay.blit(silver,silverPos)
             setDisplay.blit(scoretext, [scoreXpos,20])
             scoretext=gamefont.render('Player Score: '+str(score) , 1, [255,0,0])
             setDisplay.blit(timertext, [timerXpos,50])
