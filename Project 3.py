@@ -31,7 +31,9 @@ gold =  pygame.image.load('gold.gif')
 bronze =  pygame.image.load('bronze.gif')
 silver =  pygame.image.load('silver.gif')
 GSB  =  pygame.image.load('GSB.gif')
+Traps = pygame.image.load('Traps.jpg')
 
+Trapspos = pygame.Rect((700, 700), (500, 500))
 goldPos = pygame.Rect((900, 800), (600, 600))
 silverPos = pygame.Rect((900, 850), (700, 700))
 bronzePos = pygame.Rect((900, 900), (800, 800))
@@ -91,7 +93,13 @@ class Treasure:
     def rendertreasure(self):
         window.blit(self.treasure, (self.x,self.y))
 
-   
+#Class of Traps loads image and sets position
+
+class Traps:
+   def __init__(self,image):
+      pygame.sprite.Sprite.__init))(self)
+      self.image = pygame.image.load('Traps.jpg')
+      self.rect = self.image.get_rect()
     
  
 #Class of TwoRobots and defining the image and movement for the robot
@@ -357,4 +365,5 @@ class TwoRobots:
      
              
 pygame.display.update()
+
 
