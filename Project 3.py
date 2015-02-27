@@ -95,12 +95,20 @@ class Treasure:
 
 #Class of Traps loads image and sets position
 
-class Traps:
-   def __init__(self,image):
-      pygame.sprite.Sprite.__init))(self)
-      self.image = pygame.image.load('Traps.jpg')
-      self.rect = self.image.get_rect()
-    
+if random.randint (0,2000) <30:
+ class Traps:
+     
+   def __init__(self,x,y):
+       self.x=400
+       self.y=300
+       pygame.sprite.Sprite.__init__(self)
+       self.image = pygame.image.load('Traps.jpg')
+       self.rect = self.image.get_rect()
+       Traps.jpg = pygame.transform.scale(Traps, (120,100))
+       
+       
+ pygame.display.update()   
+
  
 #Class of TwoRobots and defining the image and movement for the robot
 class TwoRobots:
@@ -356,6 +364,7 @@ class TwoRobots:
             scoretext=gamefont.render('Player Score: '+str(score) , 1, [255,0,0])
             setDisplay.blit(timertext, [timerXpos,50])
             timertext=gamefont.render('Timer: '+str(timer) , 1, [255,0,0])
+            setDisplay.blit(Traps, (900,400))
             pygame.display.flip()
      
      
@@ -365,5 +374,7 @@ class TwoRobots:
      
              
 pygame.display.update()
+
+
 
 
