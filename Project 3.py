@@ -31,18 +31,34 @@ gold =  pygame.image.load('gold.gif')
 bronze =  pygame.image.load('bronze.gif')
 silver =  pygame.image.load('silver.gif')
 GSB  =  pygame.image.load('GSB.gif')
-Traps = pygame.image.load('Traps.jpg')
 
-Trapspos = pygame.Rect((700, 700), (500, 500))
 goldPos = pygame.Rect((900, 800), (600, 600))
+goldscore = 500
 silverPos = pygame.Rect((900, 850), (700, 700))
+silverscore = 300
 bronzePos = pygame.Rect((900, 900), (800, 800))
+bronzescore =  100
 GSBPos = pygame.Rect((900, 950), (0, 0))
+gsbscore = 1000
+
+def bubbleSort(treasures):
+    for passnum in range(len(treasures)-1,0,-1):
+        for i in range(passnum):
+            if treasures[i]>treasures[i+1]:
+                temp = treasures[i]
+                treasures[i] = treasures[i+1]
+                treasures[i+1] = temp
+
+treasures = [1000,300,100,500]
+bubbleSort(treasures)
+print (treasures , "This is the prices of the treasures bronze, silver, gold,  gsb(gold,silver,bronze) respectively")
+
+
 
 
    
    
-
+bubbleSort(treasures)
 
 #Movement and Position of the robot 
 FPS = 30
@@ -50,7 +66,7 @@ imgx = 7
 imgy = 519
 img1x=1160
 img1y=160
-pixMove = 5
+pixMove = 1
 offset = 30  
 movement = 'right'
 movement1 = 'left'
@@ -93,22 +109,8 @@ class Treasure:
     def rendertreasure(self):
         window.blit(self.treasure, (self.x,self.y))
 
-#Class of Traps loads image and sets position
-
-if random.randint (0,2000) <30:
- class Traps:
-     
-   def __init__(self,x,y):
-       self.x=400
-       self.y=300
-       pygame.sprite.Sprite.__init__(self)
-       self.image = pygame.image.load('Traps.jpg')
-       self.rect = self.image.get_rect()
-       Traps.jpg = pygame.transform.scale(Traps, (120,100))
-       
-       
- pygame.display.update()   
-
+   
+    
  
 #Class of TwoRobots and defining the image and movement for the robot
 class TwoRobots:
@@ -190,9 +192,21 @@ class TwoRobots:
     def checking_treasure(imgx,imgy):
         if imgx>975 and imgy==519:
             setDisplay.blit(treasure, (0,0))
+   
 
     while True:
             #sound.play()
+            if (imgx > 280 or img1x > 280) and (imgy == 160 or img1y == 160):
+               score = score +10
+            elif (imgx > 748 or img1x > 748) and (imgy == 469 or img1y == 469):
+               score = score + 20
+            elif (imgx > 713 or img1x > 713) and (imgy == 203 or img1y == 203):
+               score = score + 30
+            elif (imgx > 967 or img1x > 967) and (imgy == 537 or img1y == 537):
+               score = score + 50
+
+        
+            print movement1,img1x,img1y,movement,imgx,imgy
             LeftButton = 0
             for o in pygame.event.get():
                if o.type == QUIT: exit(0)
@@ -264,7 +278,7 @@ class TwoRobots:
             
        
 
-            score+=5
+            
             timer+=1
 
                 
@@ -307,8 +321,13 @@ class TwoRobots:
                 
                 elif movement == 'down':
                     imgy += pixMove
+                    if (imgx == 504) and (imgy > 730):
+                       print "PAUSE"
+                       pygame.time.wait(900000)                       
                     checking_treasure(imgx,imgy)
                     movement = checking_down(imgx,imgy,movement)
+                    
+                    
            
 
 
@@ -364,7 +383,6 @@ class TwoRobots:
             scoretext=gamefont.render('Player Score: '+str(score) , 1, [255,0,0])
             setDisplay.blit(timertext, [timerXpos,50])
             timertext=gamefont.render('Timer: '+str(timer) , 1, [255,0,0])
-            setDisplay.blit(Traps, (900,400))
             pygame.display.flip()
      
      
@@ -374,7 +392,3 @@ class TwoRobots:
      
              
 pygame.display.update()
-
-
-
-
