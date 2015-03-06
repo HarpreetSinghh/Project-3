@@ -51,10 +51,10 @@ def bubbleSort(treasures):
 
 treasures = [1000,300,100,500]
 bubbleSort(treasures)
-print (treasures , "This is the prices of the treasures bronze, silver, gold,  gsb(gold,silver,bronze) respectively")
 
+clock=pygame.time.Clock()
 
-
+time1 = input("PUT TIME: ")
 
    
    
@@ -321,9 +321,10 @@ class TwoRobots:
                 
                 elif movement == 'down':
                     imgy += pixMove
-                    if (imgx == 504) and (imgy > 730):
+                    if (imgx > 500) and (imgy > 720):
+                       print (treasures , "This is the prices of the treasures bronze, silver, gold,  gsb(gold,silver,bronze) respectively")
                        print "PAUSE"
-                       pygame.time.wait(900000)                       
+                       pygame.time.wait(900000)
                     checking_treasure(imgx,imgy)
                     movement = checking_down(imgx,imgy,movement)
                     
@@ -364,7 +365,10 @@ class TwoRobots:
                             pygame.quit()
                             sys.exit() 
         
-            
+            seconds = clock.tick()/1000.0
+            timer+=seconds
+            displaytimer=math.trunc(timer)
+
             
 #Set of images bliting on the screen
             timer=math.trunc(timer)
@@ -382,7 +386,7 @@ class TwoRobots:
             setDisplay.blit(scoretext, [scoreXpos,20])
             scoretext=gamefont.render('Player Score: '+str(score) , 1, [255,0,0])
             setDisplay.blit(timertext, [timerXpos,50])
-            timertext=gamefont.render('Timer: '+str(timer) , 1, [255,0,0])
+            timertext=gamefont.render('Timer: '+str(displaytimer) , 2, [255,0,0])
             pygame.display.flip()
      
      
